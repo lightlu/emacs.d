@@ -21,9 +21,20 @@
       (funcall s-f)
       (set-window-buffer (next-window) (other-buffer)))))
 
+(defun split-window-func-with-new-buffer (split-function)
+    (lexical-let ((s-f split-function))
+    (lambda ()
+      (interactive)
+      (funcall s-f)
+      (let ((buffer (generate-new-buffer "*new*")))
+	(set-window-buffer (next-window) buffer)
+	(with-current-buffer buffer
+	  (funcall (default-value 'major-mode)))))))
+
 (global-set-key "\C-x2" (split-window-func-with-other-buffer 'split-window-vertically))
 (global-set-key "\C-x3" (split-window-func-with-other-buffer 'split-window-horizontally))
-
+(global-set-key "\C-xn2" (split-window-func-with-new-buffer 'split-window-below))
+(global-set-key "\C-xn3" (split-window-func-with-new-buffer 'split-window-right))
 
 ;;----------------------------------------------------------------------------
 ;; Rearrange split windows
@@ -68,8 +79,8 @@ Call a second time to restore the original window configuration."
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
-;; Switch buffer with C-c + arrow key (window.el)
-(global-set-key (kbd "C-c C-b C-f") 'switch-to-next-buffer)
-(global-set-key (kbd "C-c C-b C-b") 'switch-to-prev-buffer)
+;; Switch buffer with C-c + C-arrow key (window.el)
+(global-set-key (kbd "C-c C-<left>") 'previous-buffer)
+(global-set-key (kbd "C-c C-<right>") 'next-buffer)
 
 (provide 'init-windows)

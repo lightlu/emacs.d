@@ -20,7 +20,8 @@
  ediff-window-setup-function 'ediff-setup-windows-plain
  grep-highlight-matches t
  grep-scroll-output t
- indent-tabs-mode nil
+ ;; Disable indent tab that the C indent will be effect
+ ;indent-tabs-mode nil
  line-spacing 0.2
  make-backup-files nil
  mouse-yank-at-point t
@@ -100,6 +101,8 @@
 ;;----------------------------------------------------------------------------
 (require-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
+;; No window system can not pass C-= from terminal
+(global-set-key (kbd "M-SPC") 'er/expand-region)
 
 
 ;;----------------------------------------------------------------------------
@@ -301,7 +304,7 @@ With arg N, insert N newlines."
     (end-of-line)
     (indent-according-to-mode)))
 
-(global-set-key (kbd "C-o") 'sanityinc/open-line-with-reindent)
+;; (global-set-key (kbd "C-o") 'sanityinc/open-line-with-reindent)
 
 
 ;;----------------------------------------------------------------------------
@@ -339,5 +342,13 @@ With arg N, insert N newlines."
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
 
+
+;; Hiding DOS end of line character ^M
+;; @see: http://stackoverflow.com/questions/730751/hiding-m-in-emacs
+(defun hide-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
 
 (provide 'init-editing-utils)

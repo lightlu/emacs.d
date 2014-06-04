@@ -21,6 +21,17 @@
 (require 'init-elpa)      ;; Machinery for installing required packages
 (require 'init-exec-path) ;; Set up $PATH
 
+
+
+;;----------------------------------------------------------------------------
+;; Variables configured via the interactive 'customize' interface
+;;----------------------------------------------------------------------------
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
+
+
 ;;----------------------------------------------------------------------------
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
@@ -34,7 +45,9 @@
 (require 'init-frame-hooks)
 (require 'init-xterm)
 ;(require 'init-themes) ;Can not understand the settings now
-;(require 'init-osx-keys)
+(when *is-a-mac*
+  (require 'init-osx-keys))
+
 (require 'init-gui-frames)
 (require 'init-proxies)
 (require 'init-dired)
@@ -48,7 +61,8 @@
 (require 'init-hippie-expand)
 (require 'init-auto-complete)
 (require 'init-windows)
-(require 'init-sessions)
+;; Load too much settings to initialize too slow
+;(require 'init-sessions)
 (require 'init-fonts)
 (require 'init-mmm)
 
@@ -74,7 +88,9 @@
 (require 'init-rails)
 (require 'init-sql)
 
-(require 'init-paredit)
+(when window-system
+  (require 'init-paredit))
+
 (require 'init-lisp)
 (require 'init-slime)
 (require 'init-clojure)
@@ -95,8 +111,13 @@
 (require 'init-term-mode)
 (require 'init-cc-mode)
 (require 'init-xcscope)
-(require 'init-linum-mode)
-(require 'init-emacs-w3m)
+
+(when window-system
+  (require 'init-linum-mode))
+
+(when (executable-find "w3m")
+  (require 'init-emacs-w3m))
+
 (require 'init-gtags)
 ;(require 'init-ctags) ;Enable if necessary
 (require 'init-buffer-move)
@@ -105,6 +126,18 @@
 (require 'init-smartparens)
 (require 'init-company)
 (require 'init-yasnippet)
+; Edit server is a chrome plugin let you to edit text areas with emacs
+(require 'init-edit-server)
+; Pomodoro is time management technique
+(require 'init-pomodoro)
+(require 'init-face)
+(require 'init-evil)
+(require 'init-syntax-table)
+(require 'init-tag-list)
+(require 'init-math-utils)
+(require 'init-ace-jump)
+(require 'init-key-chord)
+(require 'init-hideshow-org)
 ;(require 'elnode) ;Untest package
 
 ;; Extra packages which don't require any configuration
@@ -123,15 +156,6 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
-
-
-;;----------------------------------------------------------------------------
-;; Variables configured via the interactive 'customize' interface
-;;----------------------------------------------------------------------------
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file))
-
 
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-local" containing personal settings
