@@ -72,6 +72,7 @@
 	(magit-cherry-mode . insert)
         (js2-error-buffer-mode . emacs)
 	(help-mode . normal)
+	(calculator-mode . emacs)
         )
       do (evil-set-initial-state mode state))
 
@@ -92,31 +93,7 @@
 (define-key evil-normal-state-map "-" 'evil-numbers/dec-at-pt)
 (define-key evil-normal-state-map "go" 'goto-char)
 
-(require-package 'evil-matchit)
-(require 'evil-matchit)
-
-(global-evil-matchit-mode 1)
-
 (eval-after-load "evil" '(setq expand-region-contract-fast-key "z"))
-
-;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
-;; @see http://zuttobenkyou.wordpress.com/2011/02/15/some-thoughts-on-emacs-and-vim/
-(define-key evil-insert-state-map "k" #'cofi/maybe-exit)
-(evil-define-command cofi/maybe-exit ()
-  :repeat change
-  (interactive)
-  (let ((modified (buffer-modified-p)))
-    (insert "k")
-    (let ((evt (read-event (format "Insert %c to exit insert state" ?j)
-               nil 0.5)))
-      (cond
-       ((null evt) (message ""))
-       ((and (integerp evt) (char-equal evt ?j))
-    (delete-char -1)
-    (set-buffer-modified-p modified)
-    (push 'escape unread-command-events))
-       (t (setq unread-command-events (append unread-command-events
-                          (list evt))))))))
 
 ;; Window commands
 (define-key evil-window-map [left]  'evil-window-left)
@@ -147,9 +124,9 @@
 (define-key evil-motion-state-map (kbd "SPC") 'init-evil-undefine)
 (define-key evil-normal-state-map (kbd "TAB") 'init-evil-undefine)
 (define-key evil-insert-state-map (kbd "M-a") 'move-beginning-of-line)
-(define-key evil-normal-state-map (kbd "C-e") 'move-end-of-line)
-(define-key evil-visual-state-map (kbd "C-e") 'move-end-of-line)
-(define-key evil-insert-state-map (kbd "M-e") 'move-end-of-line)
+(define-key evil-normal-state-map (kbd "C-e") 'evil-end-of-visual-line)
+(define-key evil-visual-state-map (kbd "C-e") 'evil-end-of-visual-line)
+(define-key evil-motion-state-map (kbd "C-e") 'evil-end-of-visual-line)
 (define-key evil-normal-state-map (kbd "C-y") 'evil-paste-after)
 (define-key evil-visual-state-map (kbd "C-y") 'evil-paste-after)
 (define-key evil-insert-state-map (kbd "C-k") 'kill-line)
