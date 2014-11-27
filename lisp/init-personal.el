@@ -28,15 +28,15 @@
 (global-set-key (kbd "C-c 1 s") (kbd "C-c @ C-s"))
 
 ;; shell buffers
-(shell "*22sh*")
-(with-current-buffer "*22sh*"
-(goto-char (point-max))
-(insert "cd 2510/"))
+;(shell "*22sh*")
+;(with-current-buffer "*22sh*"
+;(goto-char (point-max))
+;(insert "cd 2510/"))
 
-(shell "*11sh*")
-(with-current-buffer "*11sh*"
-(goto-char (point-max)))
+;(shell "*11sh*")
+;(with-current-buffer "*11sh*"
+;(goto-char (point-max)))
 ;(comint-send-input nil t) ;; enter
-(put 'upcase-region 'disabled nil)
+;(put 'upcase-region 'disabled nil)
 
 (provide 'init-personal)
