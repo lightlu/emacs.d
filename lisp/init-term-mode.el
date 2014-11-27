@@ -70,6 +70,15 @@
        (when (buffer-live-p b)
 	 (switch-to-buffer b))))
 
+(defun term-toggle-line-char-mode ()
+    "Toggle term to line and char mode"
+    (interactive)
+      (if (term-in-line-mode)
+          (term-char-mode)
+        (term-line-mode)))
+
+(define-key term-mode-map (kbd "C-j") 'term-toggle-line-char-mode)
+(define-key term-raw-map (kbd "C-j") 'term-toggle-line-char-mode)
 (define-key global-map (kbd "C-x t 1") (lambda () (interactive) (switch-multi-term-by-index "1")))
 (define-key global-map (kbd "C-x t 2") (lambda () (interactive) (switch-multi-term-by-index "2")))
 (define-key global-map (kbd "C-x t 3") (lambda () (interactive) (switch-multi-term-by-index "3")))
