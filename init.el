@@ -149,10 +149,7 @@
 (require 'init-ace-jump)
 (require 'init-key-chord)
 (require 'init-hideshow-org)
-<<<<<<< HEAD
 (require 'init-octave)
-=======
->>>>>>> 8d4341cb4affbef136090edb4886880ba85cd588
 (require 'init-personal)
 ;(require 'elnode) ;Untest package
 
