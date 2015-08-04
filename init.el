@@ -151,6 +151,7 @@
 (require 'init-hideshow-org)
 (require 'init-octave)
 (require 'yang-mode)
+(require 'init-which-func)
 (require 'init-personal)
 ;(require 'elnode) ;Untest package
 
