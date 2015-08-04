@@ -150,7 +150,7 @@
 (require 'init-key-chord)
 (require 'init-hideshow-org)
 (require 'init-octave)
-(require 'yang-mode)
+(require 'init-yang-mode)
 (require 'init-personal)
 ;(require 'elnode) ;Untest package
 
