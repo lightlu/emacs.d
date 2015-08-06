@@ -152,6 +152,8 @@
 (require 'init-octave)
 (require 'yang-mode)
 (require 'init-which-func)
+(when (executable-find "xclip")
+  (require 'init-xclip))
 (require 'init-personal)
 ;(require 'elnode) ;Untest package
 
