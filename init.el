@@ -12,6 +12,11 @@
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))
 
+;(defun load-local (filename)
+;  (let ((file (s-concat (f-expand filename user-emacs-directory) ".el")))
+;    (if (f-exists? file)
+;        (load-file file))))
+
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
@@ -26,6 +31,11 @@
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
+(setq hs-minor-mode-conf (expand-file-name "hs-minor-mode-conf.el" user-emacs-directory))
+(when (file-exists-p hs-minor-mode-conf)
+  (load hs-minor-mode-conf))
+
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
@@ -40,6 +50,8 @@
 ;;----------------------------------------------------------------------------
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
+;(load-local "hs-minor-mode-conf")
+
 
 (require-package 'wgrep)
 (require-package 'project-local-variables)
