@@ -222,9 +222,9 @@
 ;;;###autoload
 (defvar yafolding-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "<C-S-return>") #'yafolding-hide-parent-element)
-    (define-key map (kbd "<C-M-return>") #'yafolding-toggle-all)
-    (define-key map (kbd "<C-return>") #'yafolding-toggle-element)
+    (define-key map (kbd "C-c x") 'yafolding-hide-parent-element)
+    (define-key map (kbd "C-c X") 'yafolding-toggle-all)
+    (define-key map (kbd "C-c e") 'yafolding-toggle-element)
     map))
 
 ;;;###autoload
