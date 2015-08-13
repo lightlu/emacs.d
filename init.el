@@ -166,6 +166,7 @@
 (require 'init-which-func)
 (when (executable-find "xclip")
   (require 'init-xclip))
+(require 'yafolding)
 (require 'init-personal)
 ;(require 'elnode) ;Untest package
 
