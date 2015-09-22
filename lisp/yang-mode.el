@@ -310,6 +310,28 @@ Key bindings:
   (run-hooks 'yang-mode-hook)
   (c-update-modeline))
 
+
+(add-hook
+ 'yang-mode-hook
+ '(lambda ()
+    (outline-minor-mode)
+    (setq outline-regexp
+            (concat "^ *" sort-of-yang-identifier-regexp " *"
+                    sort-of-yang-identifier-regexp
+                    " *{"))))
+
+;; no tabs by default. modes that really need tabs should enable
+;; indent-tabs-mode explicitly. makefile-mode already does that, for
+;; example.
+;(setq-default indent-tabs-mode nil)
+
+;; if indent-tabs-mode is off, untabify before saving
+(add-hook 'write-file-hooks
+;          (lambda () (if (not indent-tabs-mode)
+          (lambda () (if (eq major-mode 'yang-mode)
+                         (untabify (point-min) (point-max)))
+                      nil ))
+
 (provide 'yang-mode)
 
 ;;; yang.el ends here

@@ -168,6 +168,7 @@
   (require 'init-xclip))
 (require 'yafolding)
 (require 'init-personal)
+(require 'init-personal-org)
 ;(require 'elnode) ;Untest package
 
 ;; Extra packages which don't require any configuration
@@ -239,26 +240,6 @@
 
 (defconst sort-of-yang-identifier-regexp "[-a-zA-Z0-9_\\.:]*")
 
-(add-hook
- 'yang-mode-hook
- '(lambda ()
-    (outline-minor-mode)
-    (setq outline-regexp
-	    (concat "^ *" sort-of-yang-identifier-regexp " *"
-	            sort-of-yang-identifier-regexp
-	            " *{"))))
-;;
-;; mobile-org
-(require 'org-install)
-(require 'org-mobile)
-
-;; Set to the location of your Org files on your local system
-(setq org-directory "~/org")
-;; Set to the name of the file where new notes will be stored
-(setq org-mobile-inbox-for-pull "~/org/flagged.org")
-;; Set to <your Dropbox root directory>/MobileOrg.
-(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-(setq org-mobile-files (quote ("柯旗化新英文法.org" "聖靈論_聖經神學.org" "country_song_lyrics.org" "scripture_songs_for_worship.org" "note_g_fast.org" "note_codehub.org" "note_netconf_yang.org" "note_acs.org" "note_tr069.org" "note_git.org" "note_gpon.org" "note_redmine.org" "note_wwwctrl.org" "note_emacs.org" "note_shell.org" "note_screen.org" "note_gdb.org" "note_openwrt.org" "bible.org")))
 
 ;; Local Variables:
 ;; coding: utf-8
