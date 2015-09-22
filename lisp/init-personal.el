@@ -6,6 +6,8 @@
  '(org-startup-indented t))
 
 (global-set-key (kbd "C-x c") 'ido-switch-buffer)
+(global-set-key (kbd "C-x C-u") 'scroll-up-line)
+(global-set-key (kbd "C-x C-d") 'scroll-down-line)
 
 ;; hideshow-org.el
 (add-to-list 'load-path "~/.emacs.d/el-get/hideshow-org")
