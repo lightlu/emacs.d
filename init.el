@@ -156,6 +156,8 @@
 (require 'init-which-func)
 (when (executable-find "xclip")
   (require 'init-xclip))
+(require 'yafolding)
+(require 'init-personal-yang)
 ;(require 'elnode) ;Untest package
 
 ;; Extra packages which don't require any configuration
@@ -192,7 +194,6 @@
           (lambda ()
             (message "init completed in %.2fms"
                      (sanityinc/time-subtract-millis after-init-time before-init-time))))
-
 
 (provide 'init)
 
