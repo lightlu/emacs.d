@@ -1,15 +1,19 @@
 (require-package 'auto-complete)
+(require-package 'auto-complete-clang)
 (require 'auto-complete-config)
+(require 'auto-complete-clang)
+
 (global-auto-complete-mode t)
 (setq-default ac-expand-on-auto-complete nil)
 (setq-default ac-auto-start nil)
 (setq-default ac-dwim nil) ; To get pop-ups with docs even if a word is uniquely completed
-
 ;;----------------------------------------------------------------------------
 ;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
 ;;----------------------------------------------------------------------------
 (setq tab-always-indent 'complete)  ;; use 't when auto-complete is disabled
 (add-to-list 'completion-styles 'initials t)
+;; Stop completion-at-point from popping up completion buffers so eagerly
+(setq completion-cycle-threshold 5)
 
 ;; TODO: find solution for php, haskell and other modes where TAB always does something
 
@@ -21,7 +25,19 @@
   (when (and (not (minibufferp))
 	     (fboundp 'auto-complete-mode)
 	     auto-complete-mode)
-    (auto-complete)))
+    (auto-complete-yasnippet-or-completion)))
+
+;; TODO: Check if yasnippet exists
+(defun auto-complete-yasnippet-or-completion ()
+  (interactive)
+  (if (yas/expansion-at-point)
+      (progn (ac-abort)
+             (yas/expand))
+    #'auto-complete))
+
+(defun yas/expansion-at-point ()
+  "Tested with yasnippet-20140821.38"
+  (first (yas--templates-for-key-at-point)))
 
 (defun sanityinc/never-indent ()
   (set (make-local-variable 'indent-line-function) (lambda () 'noindent)))
@@ -33,16 +49,24 @@
 
 (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
+;; {{@see https://github.com/brianjcj/auto-complete-clangUsing
+;; Using auto-complete-clang in cc-mode
+(setq-default ac-quick-help-delay 0.5)
+(defun my-ac-cc-mode-setup ()
+  (setq ac-sources (append '(ac-source-clang ac-source-yasnippet) ac-sources)))
+
+(add-hook 'c-mode-common-hook 'my-ac-cc-mode-setup)
+;; }}
 
 (set-default 'ac-sources
              '(ac-source-imenu
                ac-source-dictionary
                ac-source-words-in-buffer
                ac-source-words-in-same-mode-buffers
-               ac-source-words-in-all-buffer))
+               ac-source-words-in-all-buffer
+	       ac-source-yasnippet))
 
-(dolist (mode '(magit-log-edit-mode
-                log-edit-mode org-mode text-mode haml-mode
+(dolist (mode '(log-edit-mode org-mode text-mode haml-mode
                 git-commit-mode
                 sass-mode yaml-mode csv-mode espresso-mode haskell-mode
                 html-mode nxml-mode sh-mode smarty-mode clojure-mode
