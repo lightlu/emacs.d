@@ -50,6 +50,7 @@
 (require-package 'scratch)
 (require-package 'mwe-log-commands)
 
+(require 'sh-script)
 (require 'init-frame-hooks)
 (when window-system
   (require 'init-xterm))

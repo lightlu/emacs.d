@@ -3,6 +3,11 @@
 (global-set-key (kbd "C-x C-u") 'scroll-up-line)
 (global-set-key (kbd "C-x C-d") 'scroll-down-line)
 
+;; shell script indent 8 space tab
+(setq-default sh-basic-offset 8
+	      sh-indentation 8
+	      indent-tabs-mode t)
+
 ;; hideshow-org.el
 (require 'hideshow-org)
 
