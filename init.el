@@ -158,7 +158,8 @@
   (require 'init-xclip))
 (require 'yafolding)
 (require 'init-personal-yang)
-;(require 'elnode) ;Untest package
+(require 'init-personal)
+;;(require 'elnode) ;Untest package
 
 ;; Extra packages which don't require any configuration
 
