@@ -159,6 +159,7 @@
   (require 'init-xclip))
 (require 'yafolding)
 (require 'init-personal-yang)
+(require 'init-personal-org)
 (require 'init-personal)
 ;;(require 'elnode) ;Untest package
 
